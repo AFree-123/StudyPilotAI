@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Quiz · StudyPilot AI{% endblock %}{% block content %}
+<section class="page-heading"><span class="eyebrow">QUICK SELF-CHECK</span><h1>Practice quiz</h1><p class="muted">A short general study-skills quiz for the demo.</p></section>
+<form method="post" class="quiz-form content-card"><label class="subject-label">Quiz label<input name="subject" value="Study Skills" maxlength="80"></label>
+{% set questions = [
+('Which habit supports long-term recall?',['Cramming once','Spaced revision','Skipping breaks','Only rereading']),
+('What should you do after a practice quiz?',['Ignore mistakes','Review wrong answers','Delete notes','Stop studying']),
+('A focused study block should begin with:',['A clear small goal','Many open tabs','No plan','Multitasking']),
+('For a difficult topic, a good first step is:',['Break it into smaller parts','Memorize everything at once','Avoid examples','Skip it']),
+('Which is active recall?',['Copying text repeatedly','Trying to remember without notes','Highlighting every line','Watching without pausing'])
+] %}
+{% for question, options in questions %}<fieldset class="question-block"><legend><span>QUESTION {{ loop.index }}</span><strong>{{ question }}</strong></legend>{% for option in options %}<label class="option-row"><input type="radio" name="q{{ loop.index0 }}" value="{{ loop.index0 }}" required><span>{{ option }}</span></label>{% endfor %}</fieldset>{% endfor %}
+<button class="btn btn-primary" type="submit">Submit answers →</button></form>
+{% if history %}<section class="basic-section"><div class="section-heading"><h2>Recent attempts</h2></div><div class="document-list">{% for result in history %}<div class="document-row"><div class="feature-icon">◇</div><div class="document-meta"><strong>{{ result.subject }} — {{ result.score }}/{{ result.total }}</strong><small>{{ result.created_at[:10] }}</small></div></div>{% endfor %}</div></section>{% endif %}
+{% endblock %}

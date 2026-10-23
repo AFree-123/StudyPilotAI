@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Notes · StudyPilot AI{% endblock %}{% block content %}
+<section class="page-heading"><span class="eyebrow">YOUR LIBRARY</span><h1>Notes & summaries</h1><p class="muted">A quick extractive preview from the PDFs you uploaded.</p></section>
+{% if docs %}<div class="document-list">{% for doc in docs %}<article class="content-card"><h2>{{ doc.original_name }}</h2>{% if doc.extracted_text %}<p class="preview-text">{{ doc.extracted_text[:2500] }}</p>{% else %}<p class="muted">No selectable text was found. Scanned PDFs need OCR, not included in this demo.</p>{% endif %}</article>{% endfor %}</div>{% else %}<div class="empty-state"><span>▧</span><p>Your notes will appear here after you upload a PDF.</p><a href="{{ url_for('materials') }}" class="btn btn-primary">Upload PDF</a></div>{% endif %}
+{% endblock %}

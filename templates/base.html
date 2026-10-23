@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}StudyPilot AI{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% if logged_user %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">✦</span><span>StudyPilot <em>AI</em></span></a>
+    <nav>
+      <a class="{{ 'active' if request.endpoint in ['dashboard','chat'] else '' }}" href="{{ url_for('dashboard') }}">◌ <span>Chat</span></a>
+      <a class="{{ 'active' if request.endpoint == 'materials' else '' }}" href="{{ url_for('materials') }}">▤ <span>Upload PDF</span></a>
+      <a class="{{ 'active' if request.endpoint == 'study_plan' else '' }}" href="{{ url_for('study_plan') }}">▦ <span>Study Plan</span></a>
+      <a class="{{ 'active' if request.endpoint in ['quiz'] else '' }}" href="{{ url_for('quiz') }}">◇ <span>Quiz</span></a>
+      <a class="{{ 'active' if request.endpoint == 'notes' else '' }}" href="{{ url_for('notes') }}">▧ <span>Notes</span></a>
+      <a class="{{ 'active' if request.endpoint == 'settings' else '' }}" href="{{ url_for('settings') }}">⚙ <span>Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom"><div class="avatar">{{ logged_user.name[0]|upper }}</div><div><strong>{{ logged_user.name }}</strong><small>Student</small></div><a class="logout" href="{{ url_for('logout') }}" title="Log out">↗</a></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar"><span class="eyebrow">YOUR PERSONAL STUDY COMPANION</span><span class="topbar-right">✧ &nbsp; Demo mode</span></header>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-wrap">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+    {% block content %}{% endblock %}
+    <footer class="footer">StudyPilot AI <span>•</span> Free prototype demo</footer>
+  </main>
+</div>
+{% else %}
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="auth-flashes">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block auth_content %}{% endblock %}
+{% endif %}
+</body></html>

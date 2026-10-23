@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block title %}Login · StudyPilot AI{% endblock %}{% block body_class %}auth-body{% endblock %}
+{% block auth_content %}
+<div class="auth-layout">
+  <section class="auth-story">
+    <div class="story-symbol">✦</div><div class="story-brand">StudyPilot <em>AI</em></div>
+    <p class="story-tag">Your personal<br>study companion.</p>
+    <div class="story-list"><span>↗ &nbsp; Upload</span><span>✧ &nbsp; Learn</span><span>▦ &nbsp; Plan</span><span>◇ &nbsp; Practice</span></div>
+    <p class="story-quote">“Small steps make<br>big progress.”</p>
+  </section>
+  <section class="auth-form-panel"><div class="auth-form">
+    <span class="eyebrow">WELCOME BACK</span><h1>Let’s pick up<br>where you left off.</h1><p class="muted">Log in to continue your learning journey.</p>
+    <form method="post" class="stack-form">
+      <label>Email address<input type="email" name="email" placeholder="you@example.com" required autocomplete="email"></label>
+      <label>Password<input type="password" name="password" placeholder="Enter your password" required autocomplete="current-password"></label>
+      <button class="btn btn-primary full" type="submit">Log in <span>→</span></button>
+    </form>
+    <p class="auth-switch">New to StudyPilot? <a href="{{ url_for('register') }}">Create an account</a></p>
+    <p class="tiny-note">Demo note: use the email and password you register with.</p>
+  </div></section>
+</div>
+{% endblock %}

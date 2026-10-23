@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Chat · StudyPilot AI{% endblock %}
+{% block content %}
+<section class="welcome-block"><span class="eyebrow">A QUIETER WAY TO GET THINGS DONE</span><h1>Hello, {{ logged_user.name.split(' ')[0] }} <span class="wave">✦</span></h1><p class="muted">What would you like to work on today?</p></section>
+<section class="chat-card" data-chat data-endpoint="{{ url_for('api_chat') }}">
+  <div class="assistant-line"><div class="assistant-icon">✦</div><div><strong>StudyPilot Assistant</strong><p class="muted">Ask about your notes, plan a study session, or practise a topic.</p></div></div>
+  <div class="chat-messages" data-messages><div class="message assistant-message">Hi {{ logged_user.name.split(' ')[0] }}! Tell me what you’re studying, and we’ll take it one step at a time.</div></div>
+  <form class="chat-compose" data-chat-form><textarea name="message" rows="1" placeholder="Type your question here…" aria-label="Your question" required></textarea><button class="send-button" type="submit" aria-label="Send message">→</button></form>
+  <div class="quick-actions"><button type="button" data-prompt="Create a study plan for today">Create study plan</button><button type="button" data-prompt="Summarize my uploaded PDF notes">Summarize PDF</button><button type="button" data-prompt="Give me a quiz">Practice quiz</button><button type="button" data-prompt="Show my pending tasks">Pending tasks</button></div>
+  <p class="demo-disclosure">Free demo · Replies use simple rules and extracted PDF text, not a live generative AI model.</p>
+</section>
+<section class="basic-section"><div class="section-heading"><div><span class="eyebrow">YOUR WORKSPACE</span><h2>Pick up where you left off</h2></div></div>
+<div class="feature-links"><a href="{{ url_for('materials') }}"><span class="feature-icon">↥</span><strong>Upload study material</strong><small>Add a PDF and review its text.</small><span class="feature-arrow">→</span></a><a href="{{ url_for('study_plan') }}"><span class="feature-icon">▦</span><strong>Plan your study time</strong><small>Add tasks and track completion.</small><span class="feature-arrow">→</span></a><a href="{{ url_for('quiz') }}"><span class="feature-icon">◇</span><strong>Practice a quiz</strong><small>Try a short self-check quiz.</small><span class="feature-arrow">→</span></a></div>
+<div class="mini-summary"><span>{{ doc_count }} uploaded PDF{{ '' if doc_count == 1 else 's' }}</span><span>{{ pending }} pending task{{ '' if pending == 1 else 's' }}</span><a href="{{ url_for('study_plan') }}">View study plan →</a></div></section>
+{% endblock %}

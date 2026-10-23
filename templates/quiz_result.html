@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Quiz Result · StudyPilot AI{% endblock %}{% block content %}
+<section class="result-card"><span class="eyebrow">QUIZ COMPLETE</span><div class="result-score">{{ score }}<span>/ {{ total }}</span></div><h1>{{ 'Nice work!' if score >= 4 else 'Keep practising.' }}</h1><p class="muted">You scored {{ score }} out of {{ total }} on {{ subject }}.</p><a class="btn btn-primary" href="{{ url_for('quiz') }}">Try again →</a><a class="btn btn-outline" href="{{ url_for('dashboard') }}">Back to chat</a></section>
+<section class="content-card"><h2>Answer review</h2>{% for q, options, answer in questions %}<p><strong>{{ loop.index }}. {{ q }}</strong><br><span class="muted">Correct answer: {{ options[answer] }}</span></p>{% endfor %}<p class="demo-disclosure">This is a basic demo quiz, not a subject-specific exam assessment.</p></section>
+{% endblock %}
